@@ -1,0 +1,23 @@
+{
+  "symbols": {},
+  "glue": {
+    "*": {"methods": ["pointer", "fromPointer"], "forwards": "address hand-off on every handle class"},
+    "AVChannelLayout": {"methods": ["__construct"], "forwards": "a struct with a union: order, nb_channels, the union u and opaque as properties"},
+    "AVFrame": {"methods": ["width", "height", "format", "data", "linesize", "nb_samples", "sample_rate", "ch_layout", "pts", "best_effort_timestamp", "duration", "time_base"], "forwards": "the struct's public fields, read live"},
+    "AVCodec": {"methods": ["name", "long_name", "type", "id"], "forwards": "the struct's public fields, read live"},
+    "AVCodecContext": {"methods": ["codec_type", "codec_id", "width", "height", "pix_fmt", "sample_fmt", "sample_rate", "ch_layout", "time_base"], "forwards": "the struct's public fields, read live"},
+    "AVCodecParameters": {"methods": ["codec_type", "codec_id", "format", "width", "height", "sample_rate", "ch_layout"], "forwards": "the struct's public fields, read live"},
+    "AVPacket": {"methods": ["stream_index", "pts", "dts", "duration", "size", "flags"], "forwards": "the struct's public fields, read live"},
+    "AVInputFormat": {"methods": ["name", "long_name"], "forwards": "the struct's public fields, read live"},
+    "AVFormatContext": {"methods": ["nb_streams", "streams", "iformat", "duration", "start_time", "bit_rate"], "forwards": "the struct's public fields, read live"},
+    "AVStream": {"methods": ["index", "id", "time_base", "start_time", "duration", "nb_frames", "avg_frame_rate", "codecpar"], "forwards": "the struct's public fields, read live"}
+  },
+  "helpers": {
+    "marshal": ["ffmpeg_list_longs", "ffmpeg_list_doubles", "ffmpeg_list_dictionaries"],
+    "translate": []
+  },
+  "sites": {
+    "ffmpeg-field-released": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/FieldReleasedTest.php"}
+  },
+  "typemap": {}
+}
