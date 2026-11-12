@@ -13,6 +13,7 @@
 #include <libavcodec/avcodec.h>
 #include <libavutil/avutil.h>
 #include <libavutil/channel_layout.h>
+#include <libavutil/dict.h>
 #include <libavutil/error.h>
 #include <libavutil/frame.h>
 #include <libavutil/mem.h>

@@ -1,5 +1,16 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0cee5e9229514c459f4f977e74cbfd2026074450 */
+ * Stub hash: 8ec7b1f6be30399b9b5adf859efa467e986fd47a */
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_av_dict_set, 0, 4, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(1, pm, AVDictionary, 1)
+	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_STRING, 1)
+	ZEND_ARG_TYPE_INFO(0, flags, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_av_dict_free, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(1, m, AVDictionary, 1)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_av_frame_alloc, 0, 0, AVFrame, 1)
 ZEND_END_ARG_INFO()
@@ -117,6 +128,8 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_AVDictionary_fromPointer arginfo_class_AVFrame_fromPointer
 
+ZEND_FUNCTION(av_dict_set);
+ZEND_FUNCTION(av_dict_free);
 ZEND_FUNCTION(av_frame_alloc);
 ZEND_FUNCTION(av_frame_unref);
 ZEND_FUNCTION(av_frame_free);
@@ -153,6 +166,8 @@ ZEND_METHOD(AVDictionary, pointer);
 ZEND_METHOD(AVDictionary, fromPointer);
 
 static const zend_function_entry ext_functions[] = {
+	ZEND_FE(av_dict_set, arginfo_av_dict_set)
+	ZEND_FE(av_dict_free, arginfo_av_dict_free)
 	ZEND_FE(av_frame_alloc, arginfo_av_frame_alloc)
 	ZEND_FE(av_frame_unref, arginfo_av_frame_unref)
 	ZEND_FE(av_frame_free, arginfo_av_frame_free)
@@ -493,6 +508,11 @@ static void register_libavutil_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("AV_CHANNEL_ORDER_NATIVE", AV_CHANNEL_ORDER_NATIVE, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("AV_CHANNEL_ORDER_CUSTOM", AV_CHANNEL_ORDER_CUSTOM, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("AV_CHANNEL_ORDER_AMBISONIC", AV_CHANNEL_ORDER_AMBISONIC, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("AV_DICT_MATCH_CASE", AV_DICT_MATCH_CASE, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("AV_DICT_IGNORE_SUFFIX", AV_DICT_IGNORE_SUFFIX, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("AV_DICT_DONT_OVERWRITE", AV_DICT_DONT_OVERWRITE, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("AV_DICT_APPEND", AV_DICT_APPEND, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("AV_DICT_MULTIKEY", AV_DICT_MULTIKEY, CONST_PERSISTENT);
 }
 
 static zend_class_entry *register_class_AVRational(void)

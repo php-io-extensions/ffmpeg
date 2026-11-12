@@ -14,6 +14,38 @@ it('binds the error macro, error text and rationals', function (): void {
         ->and(new AVRational())->toEqual(new AVRational(0, 0));
 });
 
+it('sets dictionary entries into a dictionary it makes, and frees it', function (): void {
+    $options = null;
+
+    expect(av_dict_set($options, 'threads', 'auto', 0))->toBeGreaterThanOrEqual(0)
+        ->and($options)->toBeInstanceOf(AVDictionary::class)
+        ->and(av_dict_set($options, 'refcounted_frames', '1', AV_DICT_DONT_OVERWRITE))->toBeGreaterThanOrEqual(0);
+
+    $held = $options;
+    av_dict_free($options);
+
+    expect($options)->toBeNull()
+        ->and($held->pointer())->toBe(0);
+});
+
+it('opens a decoder with the options of a dictionary and gets back the ones it did not take', function (): void {
+    $context = openFixture();
+    $codec = null;
+    $index = av_find_best_stream($context, AVMEDIA_TYPE_VIDEO, -1, -1, $codec, 0);
+    $decoder = avcodec_alloc_context3($codec);
+    avcodec_parameters_to_context($decoder, $context->streams()[$index]->codecpar());
+    $options = null;
+    av_dict_set($options, 'threads', '2', 0);
+    av_dict_set($options, 'not-an-option', '1', 0);
+
+    expect(avcodec_open2($decoder, $codec, $options))->toBe(0)
+        ->and($options)->toBeInstanceOf(AVDictionary::class);
+
+    av_dict_free($options);
+    avcodec_free_context($decoder);
+    avformat_close_input($context);
+});
+
 it('names pixel and sample formats and reports sample sizes', function (): void {
     expect(av_get_pix_fmt_name(AV_PIX_FMT_RGBA))->toBe('rgba')
         ->and(av_get_pix_fmt_name(-1))->toBeNull()

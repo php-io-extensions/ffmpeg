@@ -57,6 +57,51 @@ ZEND_METHOD(AVChannelLayout, __construct)
 	zend_update_property_long(ffmpeg_ce_AVChannelLayout, Z_OBJ_P(ZEND_THIS), "opaque", sizeof("opaque") - 1, opaque);
 }
 
+/* libavutil/dict.h */
+PHP_FUNCTION(av_dict_set)
+{
+	zval *pm;
+	zend_string *key, *value = NULL;
+	zend_long flags;
+	zend_object *before = NULL;
+	AVDictionary *dictionary;
+	int result;
+
+	ZEND_PARSE_PARAMETERS_START(4, 4)
+		Z_PARAM_ZVAL(pm)
+		Z_PARAM_STR(key)
+		Z_PARAM_STR_OR_NULL(value)
+		Z_PARAM_LONG(flags)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (Z_TYPE_P(Z_REFVAL_P(pm)) == IS_OBJECT && Z_OBJCE_P(Z_REFVAL_P(pm)) == ffmpeg_ce_AVDictionary) {
+		before = Z_OBJ_P(Z_REFVAL_P(pm));
+	}
+	dictionary = ffmpeg_ptr_or_null(before);
+	/* The strings are PHP's: FFmpeg copies them, so the two flags that hand it ownership are not passed on. */
+	result = av_dict_set(&dictionary, ZSTR_VAL(key), value != NULL ? ZSTR_VAL(value) : NULL, (int) flags & ~(AV_DICT_DONT_STRDUP_KEY | AV_DICT_DONT_STRDUP_VAL));
+	ffmpeg_ref_result(pm, before, dictionary, ffmpeg_ce_AVDictionary);
+	RETURN_LONG(result);
+}
+
+PHP_FUNCTION(av_dict_free)
+{
+	zval *ref;
+	zend_object *before = NULL;
+	AVDictionary *dictionary;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ZVAL(ref)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (Z_TYPE_P(Z_REFVAL_P(ref)) == IS_OBJECT && Z_OBJCE_P(Z_REFVAL_P(ref)) == ffmpeg_ce_AVDictionary) {
+		before = Z_OBJ_P(Z_REFVAL_P(ref));
+	}
+	dictionary = ffmpeg_ptr_or_null(before);
+	av_dict_free(&dictionary);
+	ffmpeg_ref_result(ref, before, dictionary, ffmpeg_ce_AVDictionary);
+}
+
 /* libavutil/frame.h */
 PHP_FUNCTION(av_frame_alloc)
 {

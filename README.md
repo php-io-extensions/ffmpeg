@@ -1,7 +1,7 @@
 # ffmpeg
 
 [![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/ffmpeg/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/ffmpeg/actions/workflows/ci.yml)
-[![FFmpeg API](https://img.shields.io/badge/FFmpeg_API-4.2%25_%2840%2F955%29-blue?style=flat-square)](SUPPORT.md)
+[![FFmpeg API](https://img.shields.io/badge/FFmpeg_API-4.4%25_%2842%2F955%29-blue?style=flat-square)](SUPPORT.md)
 
 1:1 PHP bindings of FFmpeg's libavformat, libavcodec, libavutil, libswscale and libswresample. Version 0.11.0. Linux and macOS.
 

@@ -1713,6 +1713,36 @@ const AV_CHANNEL_ORDER_CUSTOM = UNKNOWN;
 const AV_CHANNEL_ORDER_AMBISONIC = UNKNOWN;
 
 /**
+ * @var int
+ * @cvalue AV_DICT_MATCH_CASE
+ */
+const AV_DICT_MATCH_CASE = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue AV_DICT_IGNORE_SUFFIX
+ */
+const AV_DICT_IGNORE_SUFFIX = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue AV_DICT_DONT_OVERWRITE
+ */
+const AV_DICT_DONT_OVERWRITE = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue AV_DICT_APPEND
+ */
+const AV_DICT_APPEND = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue AV_DICT_MULTIKEY
+ */
+const AV_DICT_MULTIKEY = UNKNOWN;
+
+/**
  * @not-serializable
  */
 final class AVRational
@@ -1795,6 +1825,12 @@ final class AVDictionary
 
     public static function fromPointer(int $pointer): ?static {}
 }
+
+/** libavutil/dict.h. $pm: the dictionary in and out; null makes one. A null $value deletes the entry. */
+function av_dict_set(?AVDictionary &$pm, string $key, ?string $value, int $flags): int {}
+
+/** Releases the handle and sets $m to null. */
+function av_dict_free(?AVDictionary &$m): void {}
 
 /** libavutil/frame.h */
 function av_frame_alloc(): ?AVFrame {}
